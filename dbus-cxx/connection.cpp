@@ -908,6 +908,14 @@ bool Connection::unregister_object( const std::string& path ) {
     it = m_priv->m_path_handler.find( path );
 
     if( it != m_priv->m_path_handler.end() ) {
+        //remove from root node using adjusted path
+        std::string adjusted_path = path;
+        if (adjusted_path.at(0) == '/') {
+            adjusted_path.erase(0, 1);
+        }
+        m_priv->m_root_object->remove_child( adjusted_path );
+
+        // remove it's handler
         m_priv->m_path_handler.erase( it );
         return true;
     }
