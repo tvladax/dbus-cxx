@@ -56,7 +56,8 @@ VariantIterator::VariantIterator( DataType d,
 
     if( d == DataType::ARRAY ) {
         m_priv->m_subiterInfo.m_subiterDataType = d;
-        m_priv->m_subiterInfo.m_arrayLastPosition = m_priv->m_demarshal->current_offset() + m_priv->m_demarshal->demarshal_uint32_t();
+        m_priv->m_subiterInfo.m_arrayLastPosition = m_priv->m_demarshal->demarshal_uint32_t();
+        m_priv->m_subiterInfo.m_arrayLastPosition += m_priv->m_demarshal->current_offset() - 1;
     } else if( d == DataType::VARIANT ) {
         Signature demarshaled_sig = demarshal->demarshal_signature();
         m_priv->m_subiterInfo.m_variantSignature = demarshaled_sig;
